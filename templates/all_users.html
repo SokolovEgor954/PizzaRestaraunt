@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% set active_page = 'admin' %}
+
+{% block title %}Усі користувачі — Останній Прихисток{% endblock %}
+
+{% block content %}
+
+{% include '_admin_navigation.html' %}
+
+<div class="terminal-panel mb-4">
+
+    <div class="terminal-header d-flex justify-content-between align-items-center">
+        <span class="terminal-title">[ СПИСОК КОРИСТУВАЧІВ ]</span>
+        <span class="terminal-code">NODE: USERS-01</span>
+    </div>
+
+    <div class="terminal-body">
+        <p>> Перелік усіх зареєстрованих виживших у системі Прихистку.</p>
+    </div>
+
+</div>
+
+<table class="terminal-table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Нікнейм</th>
+            <th>Email</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {% for user in all_users %}
+        <tr>
+            <td>{{ user.id }}</td>
+            <td>{{ user.nickname }}</td>
+            <td>{{ user.email }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}

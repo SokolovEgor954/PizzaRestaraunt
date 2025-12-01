@@ -1,0 +1,317 @@
+/* ================================
+   GLOBAL TERMINAL + LAYOUT
+   ================================ */
+
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
+body.haven-body {
+    background: #0c0f0c;
+    color: #4cff80;
+    font-family: "Share Tech Mono", monospace;
+    text-shadow: 0 0 4px rgba(76,255,128,0.7);
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+}
+
+/* main — росте, футер — внизу */
+main.container {
+    flex: 1;
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+}
+
+
+/* ================================
+   FOOTER
+   ================================ */
+
+.haven-footer {
+    flex-shrink: 0;
+    border-top: 1px solid #4cff80;
+    padding: 12px 0;
+    font-size: 0.9rem;
+    opacity: 0.9;
+    text-shadow: 0 0 6px rgba(76,255,128,0.7);
+}
+
+
+/* ================================
+   HERO (головний верхній блок)
+   ================================ */
+
+.haven-home-hero {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.haven-heading {
+    font-size: 2.8rem;
+    margin-bottom: 1rem;
+    text-shadow: 0 0 12px rgba(76,255,128,1);
+}
+
+.haven-subtext {
+    font-size: 1.2rem;
+    margin-bottom: 1.8rem;
+}
+
+
+/* ================================
+   BUTTONS
+   ================================ */
+
+.btn-haven,
+.btn-outline-haven,
+.btn-danger-haven {
+    font-family: "Share Tech Mono", monospace;
+    text-transform: uppercase;
+    padding: 12px 26px;
+    border-radius: 4px;
+    border: 1px solid #4cff80;
+    background: rgba(10,15,10,0.85);
+    color: #4cff80;
+    transition: 0.15s;
+}
+
+.btn-haven:hover {
+    background: rgba(76,255,128,0.25);
+}
+
+/* великі кнопки Вхід / Реєстрація */
+.big-auth-btn {
+    font-size: 1.3rem;
+    padding: 14px 40px;
+    margin: 0 1rem;
+}
+
+/* обгортка для центрованих кнопок */
+.home-auth-buttons {
+    text-align: center;
+    margin-top: 2.5rem;
+}
+
+
+/* ================================
+   TERMINAL PANEL
+   ================================ */
+
+.terminal-panel {
+    border: 1px solid #4cff80;
+    padding: 20px;
+    background: rgba(10,15,10,0.92);
+    box-shadow: 0 0 14px rgba(76,255,128,0.3);
+    margin-top: 2.5rem;
+    border-radius: 4px;
+}
+
+.terminal-header {
+    border-bottom: 1px solid #4cff80;
+    padding-bottom: 6px;
+    margin-bottom: 8px;
+}
+
+.terminal-title {
+    font-weight: bold;
+}
+
+.terminal-body p {
+    margin: 6px 0;
+}
+
+.terminal-highlight {
+    color: #fff;
+    text-shadow: 0 0 8px #fff;
+}
+
+
+/* ================================
+   FX (шум / лінії)
+   ================================ */
+
+.scanline,
+.noise {
+    pointer-events: none;
+}
+
+
+/* ============================================
+   TERMINAL INPUT FIELDS — FALLOUT STYLE
+   ============================================ */
+
+input[type="text"],
+input[type="nickname"],
+input[type="email"],
+input[type="password"],
+input[type="number"],
+textarea {
+    width: 100%;
+    background: rgba(5, 10, 5, 0.85); /* темний фон */
+    border: 1px solid #4cff80;        /* зелена рамка */
+    padding: 10px 14px;
+    color: #4cff80;
+    font-family: "Share Tech Mono", monospace;
+    font-size: 1.05rem;
+    text-shadow: 0 0 6px rgba(76,255,128,0.8);
+    box-shadow: 0 0 8px rgba(76,255,128,0.25);
+    outline: none;
+    transition: 0.25s;
+}
+
+/* При фокусі — Піп-Бой світіння */
+input:focus,
+textarea:focus {
+    border-color: #8affb8;
+    box-shadow: 0 0 14px rgba(76,255,128,0.55);
+    background: rgba(10, 20, 10, 0.95);
+}
+
+/* Placeholder — тьмяний зелений */
+input::placeholder,
+textarea::placeholder {
+    color: rgba(76,255,128,0.4);
+    text-shadow: none;
+}
+
+/* Підпис до полів */
+label {
+    color: #4cff80;
+    font-family: "Share Tech Mono", monospace;
+    margin-bottom: 6px;
+    display: block;
+    text-shadow: 0 0 4px rgba(76,255,128,0.6);
+}
+
+/* ===== CUSTOM FILE INPUT ===== */
+
+.file-upload-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    cursor: pointer;
+}
+
+.file-upload-wrapper input[type="file"] {
+    opacity: 0;
+    position: absolute;
+    width: 0.1px;
+    height: 0.1px;
+    overflow: hidden;
+    z-index: -1;
+}
+
+.file-upload-button {
+    padding: 10px 18px;
+    border: 1px solid #4cff80;
+    color: #4cff80;
+    background: rgba(10,15,10,0.85);
+    font-family: "Share Tech Mono", monospace;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.file-upload-button:hover {
+    background: rgba(76,255,128,0.2);
+    box-shadow: 0 0 10px rgba(76,255,128,0.4);
+}
+
+.file-upload-name {
+    color: #4cff80;
+    font-family: "Share Tech Mono", monospace;
+    text-shadow: 0 0 4px rgba(76,255,128,0.7);
+    opacity: 0.9;
+}
+
+/* ================================
+   CART (BASKET) BUTTON STYLING
+   ================================ */
+
+.haven-menu .cart-link {
+    color: #4cff80 !important;
+    text-shadow: 0 0 6px rgba(76,255,128,0.7);
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: 0.2s;
+}
+
+.haven-menu .cart-link:hover {
+    color: #aaffc6 !important;
+    text-shadow: 0 0 8px rgba(76,255,128,1);
+    transform: translateY(-1px);
+}
+
+.cart-count {
+    background: rgba(76,255,128,0.15);
+    border: 1px solid #4cff80;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    text-shadow: 0 0 6px rgba(76,255,128,0.7);
+}
+
+/* Загальний стиль інпутів і селектів */
+.haven-input, select {
+    background: rgba(5, 10, 5, 0.8);
+    border: 1px solid #4cff80;
+    color: #4cff80;
+    padding: 10px 15px;
+    width: 100%;
+    font-family: "Share Tech Mono", monospace;
+    font-size: 1.1rem;
+    border-radius: 4px;
+    text-shadow: 0 0 6px rgba(76,255,128,0.6);
+}
+
+.haven-input:focus, select:focus {
+    outline: none;
+    box-shadow: 0 0 14px rgba(76,255,128,0.8);
+}
+
+/* Іконка календаря */
+input[type="datetime-local"]::-webkit-calendar-picker-indicator {
+    filter: invert(80%) sepia(100%) saturate(500%) hue-rotate(80deg);
+    cursor: pointer;
+}
+
+/* ==== СТИЛЬ ДЛЯ ПОЛЯ ДАТИ === */
+.input-date-haven {
+    width: 100%;
+    padding: 10px 14px;
+    background: rgba(0, 0, 0, 0.8);
+    border: 1px solid #4cff80;
+    color: #4cff80;
+    font-family: "Share Tech Mono", monospace;
+    font-size: 1.1rem;
+    border-radius: 4px;
+    text-shadow: 0 0 6px rgba(76,255,128,0.9);
+    outline: none;
+    box-shadow: 0 0 10px rgba(76,255,128,0.3);
+}
+
+/* При фокусі */
+.input-date-haven:focus {
+    border-color: #00ff95;
+    box-shadow: 0 0 12px rgba(0,255,149,0.9);
+}
+
+/* Стилізація іконки календаря */
+input[type="datetime-local"]::-webkit-calendar-picker-indicator {
+    filter: invert(75%) sepia(100%) saturate(500%) hue-rotate(80deg);
+    opacity: 0.9;
+    cursor: pointer;
+}
+
+/* Плейсхолдер */
+.input-date-haven::placeholder {
+    color: rgba(76,255,128,0.6);
+}
+
+
+
+

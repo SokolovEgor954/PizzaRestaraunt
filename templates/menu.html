@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% set active_page = 'menu' %}
+
+{% block title %}Меню — Останній Прихисток{% endblock %}
+
+{% block content %}
+
+<div class="terminal-panel mb-4">
+    <div class="terminal-header d-flex justify-content-between align-items-center mb-2">
+        <span class="terminal-title">[ МЕНЮ ПРИХИСТКУ ]</span>
+        <span class="terminal-code">NODE: MENU-01</span>
+    </div>
+
+    <div class="terminal-body">
+        <p>> Перед тобою залишки кулінарного мистецтва Старого Світу.</p>
+        <p>> Кожна страва — шанс вижити ще один день.</p>
+    </div>
+</div>
+
+<div class="row g-4">
+    {% for position in all_positions %}
+    <div class="col-md-4 col-sm-6">
+        <div class="card card-haven h-100">
+
+            <img src="/static/menu/{{ position.file_name }}"
+                 class="card-img-top"
+                 alt="{{ position.name }}">
+
+            <div class="card-body">
+                <h4 class="card-title terminal-highlight">{{ position.name }}</h4>
+
+                <p class="card-text">
+                    {{ position.ingredients }}
+                </p>
+
+                <p class="price-tag">
+                    <span class="price">{{ position.price }}</span> грн
+                </p>
+
+                <a href="/position/{{ position.name }}" class="btn btn-haven w-100 mt-2">
+                    ☢ Детальніше
+                </a>
+            </div>
+
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+{% endblock %}

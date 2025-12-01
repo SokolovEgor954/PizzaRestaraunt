@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+{% set active_page = 'admin' %}
+
+{% block title %}Додати позицію — Останній Прихисток{% endblock %}
+
+{% block content %}
+
+<div class="terminal-panel mb-4">
+
+    <div class="terminal-header d-flex justify-content-between">
+        <span class="terminal-title">[ ДОДАВАННЯ НОВОЇ ПОЗИЦІЇ ]</span>
+        <span class="terminal-code">NODE: ADD-POS</span>
+    </div>
+
+    <div class="terminal-body">
+        <p>> Створіть нову страву для меню Притулку.</p>
+        <p>> Усі поля є обовʼязковими.</p>
+    </div>
+
+</div>
+
+<!-- Flash повідомлення -->
+{% with messages = get_flashed_messages() %}
+    {% if messages %}
+        <div class="alert alert-haven mt-3">
+            {{ messages[0] }}
+        </div>
+    {% endif %}
+{% endwith %}
+
+<div class="terminal-panel p-4">
+
+    <form method="post" enctype="multipart/form-data">
+
+        <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+
+        <!-- Назва -->
+        <label class="form-label-haven">Назва позиції</label>
+        <input type="text" name="name" required class="input-haven mb-3" placeholder="Наприклад: Радіаційний бургер">
+
+        <!-- Фото -->
+        <label class="file-upload-wrapper">
+            <span class="file-upload-button">⛁ Завантажити фото</span>
+            <span class="file-upload-name">Файл не вибрано</span>
+            <input type="file" name="img" id="imgUpload" accept="image/*">
+        </label>
+
+        <script nonce="{{ nonce }}">
+        document.getElementById("imgUpload").addEventListener("change", function() {
+            const label = document.querySelector(".file-upload-name");
+            label.textContent = this.files.length > 0 ? this.files[0].name : "Файл не вибрано";
+        });
+        </script>
+        <!-- Інгредієнти -->
+        <label class="form-label-haven">Інгредієнти</label>
+        <textarea name="ingredients" class="input-haven textarea-haven mb-3" required placeholder="Список інгредієнтів"></textarea>
+
+        <!-- Опис -->
+        <label class="form-label-haven">Опис страви</label>
+        <textarea name="description" class="input-haven textarea-haven mb-3" required placeholder="Детальний опис страви"></textarea>
+
+        <!-- Ціна -->
+        <label class="form-label-haven">Ціна (грн)</label>
+        <input type="number" name="price" required class="input-haven mb-3" min="1">
+
+        <!-- Вага -->
+        <label class="form-label-haven">Вага (г)</label>
+        <input type="number" name="weight" required class="input-haven mb-4" min="1">
+
+        <button type="submit" class="btn btn-haven w-100 mt-3">
+            ☢ Додати товар
+        </button>
+
+    </form>
+
+</div>
+
+{% endblock %}

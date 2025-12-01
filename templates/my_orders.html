@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% set active_page = 'orders' %}
+
+{% block title %}Мої замовлення — Останній Прихисток{% endblock %}
+
+{% block content %}
+
+<div class="terminal-panel mb-4">
+    <div class="terminal-header d-flex justify-content-between">
+        <span class="terminal-title">[ ІСТОРІЯ ЗАМОВЛЕНЬ ]</span>
+        <span class="terminal-code">NODE: ORDERS-LIST</span>
+    </div>
+
+    <div class="terminal-body">
+        <p>> Нижче відображені всі замовлення, які система укриття змогла знайти у вашому профілі.</p>
+    </div>
+</div>
+
+{% if us_orders %}
+    {% for order in us_orders %}
+    <div class="terminal-panel mb-3">
+
+        <div class="terminal-header d-flex justify-content-between align-items-center">
+            <span class="terminal-title">[ ЗАМОВЛЕННЯ №{{ order.id }} ]</span>
+            <span class="terminal-code">{{ order.order_time }}</span>
+        </div>
+
+        <div class="terminal-body">
+            <p>
+                > Статус: <span class="terminal-highlight">Зареєстровано</span>
+            </p>
+
+            <a href="/my_order/{{ order.id }}" class="btn btn-haven mt-2 w-100">
+                ☢ Переглянути деталі
+            </a>
+        </div>
+
+    </div>
+    {% endfor %}
+{% else %}
+    <div class="terminal-panel">
+        <div class="terminal-header">
+            <span class="terminal-title">[ НІЧОГО НЕ ЗНАЙДЕНО ]</span>
+        </div>
+        <div class="terminal-body">
+            <p>> У вас ще немає активних або архівних замовлень.</p>
+            <a href="/menu" class="btn btn-outline-haven mt-2">☰ Перейти до меню</a>
+        </div>
+    </div>
+{% endif %}
+
+{% endblock %}

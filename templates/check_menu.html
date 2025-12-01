@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% set active_page = 'admin' %}
+
+{% block title %}Адміністрування меню — Останній Прихисток{% endblock %}
+
+{% block content %}
+
+{% include '_admin_navigation.html' %}
+
+<div class="terminal-panel mb-4">
+
+    <div class="terminal-header d-flex justify-content-between align-items-center">
+        <span class="terminal-title">[ АДМІНІСТРУВАННЯ МЕНЮ ]</span>
+        <span class="terminal-code">NODE: MENU-CHECK</span>
+    </div>
+
+    <div class="terminal-body">
+        <p>> Тут ви можете змінювати статус страв та видаляти позиції з меню.</p>
+        <p>> Будьте уважні — будь-яка дія необоротна.</p>
+    </div>
+
+</div>
+
+<table class="terminal-table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Назва</th>
+            <th>Опис</th>
+            <th>Ціна</th>
+            <th>Активний</th>
+            <th>Дія</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {% for pos in all_positions %}
+        <tr>
+            <td>{{ pos.id }}</td>
+            <td>{{ pos.name }}</td>
+            <td>{{ pos.description }}</td>
+            <td>{{ pos.price }}</td>
+            <td>
+                {% if pos.active %}
+                    <span class="terminal-highlight">Так</span>
+                {% else %}
+                    <span style="opacity: 0.7;">Ні</span>
+                {% endif %}
+            </td>
+
+            <td>
+                <form method="post" class="d-flex flex-column gap-2 mt-2">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+                    <input type="hidden" name="pos_id" value="{{ pos.id }}">
+
+                    <button type="submit" name="change_status" class="btn btn-haven w-100">
+                        ☢ Змінити статус
+                    </button>
+
+                    <button type="submit" name="delete_position" class="btn btn-danger-haven w-100">
+                        ⚠ Видалити
+                    </button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}

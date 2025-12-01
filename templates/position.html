@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+{% set active_page = 'menu' %}
+
+{% block title %}{{ position.name }} — Деталі{% endblock %}
+
+{% block content %}
+
+<!-- Flash повідомлення -->
+{% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <div class="terminal-panel mb-4">
+        <div class="alert alert-haven">{{ messages[-1] }}</div>
+    </div>
+    {% endif %}
+{% endwith %}
+
+<div class="row g-4">
+
+    <!-- Фото страви -->
+    <div class="col-md-5">
+        <div class="card-haven p-3 text-center">
+            <img src="/static/menu/{{ position.file_name }}" alt="{{ position.name }}" class="img-fluid">
+        </div>
+    </div>
+
+    <!-- Інформація -->
+    <div class="col-md-7">
+        <div class="terminal-panel h-100">
+
+            <div class="terminal-header d-flex justify-content-between">
+                <span class="terminal-title">[ ОПИС ПОЗИЦІЇ ]</span>
+                <span class="terminal-code">NODE: FOOD-{{ position.id }}</span>
+            </div>
+
+            <div class="terminal-body">
+
+                <h2 class="terminal-highlight">{{ position.name }}</h2>
+
+                <p>
+                    <strong>Вага:</strong> {{ position.weight }} г
+                </p>
+
+                <p>
+                    <strong>Інгредієнти:</strong><br>
+                    {{ position.ingredients }}
+                </p>
+
+                <p><strong>Опис:</strong></p>
+                <div class="description-block">
+                    {{ position.description }}
+                </div>
+
+
+                <p class="price-display mt-3">
+                    <span class="price-number">{{ position.price }}</span> грн
+                </p>
+
+                <!-- Форма додавання -->
+                <form method="post" class="mt-3">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+                    <input type="hidden" name="name" value="{{ position.name }}">
+
+                    <label>Кількість:</label>
+                    <input type="number" name="num" min="1" value="1" required class="input-haven">
+
+                    <button type="submit" class="btn btn-haven mt-3 w-100">
+                        ☢ Додати до кошика
+                    </button>
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}

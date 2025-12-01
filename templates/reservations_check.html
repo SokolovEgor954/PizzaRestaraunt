@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% set active_page = 'admin' %}
+
+{% block title %}Перевірка бронювань — Останній Прихисток{% endblock %}
+
+{% block content %}
+
+<div class="terminal-panel mb-4">
+
+    <div class="terminal-header d-flex justify-content-between align-items-center">
+        <span class="terminal-title">[ ПЕРЕВІРКА БРОНЮВАНЬ ]</span>
+        <span class="terminal-code">NODE: RESERVE-CHECK</span>
+    </div>
+
+    <div class="terminal-body">
+        <p>> Адміністративний модуль перегляду активних та майбутніх бронювань.</p>
+        <p>> Ви можете видалити будь-яке бронювання, якщо воно більше не актуальне.</p>
+    </div>
+
+</div>
+
+<table class="terminal-table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Час</th>
+            <th>Тип столика</th>
+            <th>Користувач</th>
+            <th>Дія</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {% for res in all_reservations %}
+        <tr>
+            <td>{{ res.id }}</td>
+            <td>{{ res.time_start }}</td>
+            <td>{{ res.type_table }}</td>
+            <td>{{ res.user.nickname }}</td>
+            <td>
+                <form method="post" class="d-flex flex-column gap-2">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+                    <input type="hidden" name="reserv_id" value="{{ res.id }}">
+
+                    <button type="submit" class="btn btn-danger-haven w-100">
+                        ⚠ Видалити
+                    </button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}

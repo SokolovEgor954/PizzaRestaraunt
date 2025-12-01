@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+{% set active_page = 'reserved' %}
+{% block title %}Бронювання столика — Останній Прихисток{% endblock %}
+
+{% block content %}
+
+<div class="terminal-panel mb-4">
+    <div class="terminal-header d-flex justify-content-between">
+        <span class="terminal-title">[ БРОНЮВАННЯ СТОЛИКА ]</span>
+        <span class="terminal-code">NODE: RESERVE-01</span>
+    </div>
+
+    <div class="terminal-body">
+        <p>> Оберіть час та параметри столика, щоб зарезервувати місце в Прихистку.</p>
+        <p>> Ваші координати будуть визначені автоматично.</p>
+    </div>
+</div>
+
+<div class="terminal-panel p-4">
+
+    <form method="post">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+
+        <label class="form-label-haven">Тип столика</label>
+        <select name="table_type" class="input-haven mb-3">
+            <option value="1-2">1–2 людини</option>
+            <option value="3-4">3–4 людини</option>
+            <option value="4+">Більше 4-х</option>
+        </select>
+
+        <label class="form-label-haven">Дата та час</label>
+        <input type="datetime-local"
+               name="time"
+               class="input-date-haven"
+               required>
+
+
+        <input type="hidden" name="latitude" id="latitude">
+        <input type="hidden" name="longitude" id="longitude">
+
+        <button type="submit" class="btn btn-haven w-100 mt-3">
+            ☢ Забронювати
+        </button>
+    </form>
+
+</div>
+
+{% if message %}
+<div class="alert alert-haven mt-4">
+    {{ message }}
+</div>
+{% endif %}
+
+<!-- Геолокація -->
+<script nonce="{{nonce}}">
+    window.onload = function() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(
+                function (position) {
+                    document.getElementById("latitude").value = position.coords.latitude;
+                    document.getElementById("longitude").value = position.coords.longitude;
+                },
+                function (error) {
+                    console.error("Геолокацію не вдалося отримати:", error);
+                }
+            );
+        } else {
+            console.warn("Геолокація не підтримується у вашому браузері.");
+        }
+    };
+</script>
+
+{% endblock %}

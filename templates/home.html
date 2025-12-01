@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% set active_page = 'home' %}
+
+{% block title %}Останній Прихисток — Головна{% endblock %}
+
+{% block content %}
+
+<!-- Головний заголовок -->
+<div class="haven-home-hero text-center">
+    <h1 class="haven-heading">ОСТАННІЙ ПРИХИСТОК</h1>
+    <p class="haven-subtext">Тут немає світла. Є лише вогонь кухні.</p>
+
+    <div class="d-flex justify-content-center gap-3 flex-wrap">
+        <a href="/menu" class="btn btn-haven">☢ Переглянути меню</a>
+    </div>
+</div>
+
+
+<!-- Вітальна панель -->
+<div class="terminal-panel mb-4">
+    <div class="terminal-header d-flex justify-content-between align-items-center mb-2">
+        <span class="terminal-title">[ ВІТАЄМО, ВИЖИВШИЙ ]</span>
+        <span class="terminal-code">NODE: HAVEN-HOME</span>
+    </div>
+
+    <div class="terminal-body">
+        <p>> Ласкаво просимо до “Останнього Прихистку”.</p>
+        <p>> Тут ти знайдеш останні рецепти Старого Світу.</p>
+
+        {% if current_user.is_authenticated %}
+            <p class="mt-4">
+                > Статус користувача:
+                <span class="terminal-highlight">{{ current_user.nickname }}</span>.
+            </p>
+        {% else %}
+            <p class="mt-4">
+                > Статус користувача:
+                <span class="terminal-highlight">ГОСТЬ</span>.
+            </p>
+        {% endif %}
+    </div>
+</div>
+
+
+<!-- Кнопки для гостей -->
+{% if not current_user.is_authenticated %}
+<div class="home-auth-buttons">
+    <a href="/login" class="btn btn-outline-haven big-auth-btn">Вхід</a>
+    <a href="/register" class="btn btn-outline-haven big-auth-btn">Реєстрація</a>
+</div>
+{% endif %}
+
+{% endblock %}

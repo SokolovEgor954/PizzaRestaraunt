@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% set active_page = 'orders' %}
+
+{% block title %}Замовлення №{{ order.id }} — Останній Прихисток{% endblock %}
+
+{% block content %}
+
+<div class="terminal-panel mb-4">
+
+    <div class="terminal-header d-flex justify-content-between">
+        <span class="terminal-title">[ ДЕТАЛІ ЗАМОВЛЕННЯ ]</span>
+        <span class="terminal-code">ORDER-ID: {{ order.id }}</span>
+    </div>
+
+    <div class="terminal-body">
+        <p>> Замовлення №{{ order.id }} зафіксовано у системі укриття.</p>
+        <p>> Дата та час: <span class="terminal-highlight">{{ order.order_time }}</span></p>
+    </div>
+
+</div>
+
+<!-- Повідомлення -->
+{% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        {% for category, message in messages %}
+            <div class="alert alert-haven alert-{{ category }}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+{% endwith %}
+
+<!-- Список позицій -->
+<div class="terminal-panel mb-4">
+    <div class="terminal-header">
+        <span class="terminal-title">[ СКЛАД ЗАМОВЛЕННЯ ]</span>
+    </div>
+
+    <div class="terminal-body">
+        <ul class="list-unstyled">
+            {% for name, quantity in order.order_list.items() %}
+                <li>
+                    ☢ {{ name }} —
+                    <span class="terminal-highlight">кількість: {{ quantity }}</span>
+                </li>
+            {% endfor %}
+        </ul>
+
+        <p class="mt-3">
+            <strong>Загальна сума:</strong>
+            <span class="terminal-highlight">{{ total_price }} грн</span>
+        </p>
+    </div>
+</div>
+
+<!-- Кнопка скасування -->
+<div class="terminal-panel p-3">
+    <form method="post" action="/cancel_order/{{ order.id }}">
+        <input type="hidden" name="csrf_token" value="{{ session.get('csrf_token') }}">
+
+        <button type="submit" class="btn btn-danger-haven w-100">
+            ⚠ Скасувати замовлення
+        </button>
+    </form>
+</div>
+
+{% endblock %}

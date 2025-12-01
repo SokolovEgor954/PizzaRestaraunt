@@ -1,0 +1,103 @@
+{% extends "base.html" %}
+{% set active_page = 'orders' %}
+
+{% block title %}Оформлення замовлення — Останній Прихисток{% endblock %}
+
+{% block content %}
+
+<div class="terminal-panel mb-4">
+    <div class="terminal-header d-flex justify-content-between">
+        <span class="terminal-title">[ ОФОРМЛЕННЯ ЗАМОВЛЕННЯ ]</span>
+        <span class="terminal-code">NODE: ORDER-INIT</span>
+    </div>
+
+    <div class="terminal-body">
+        <p>> Перевір список провізії перед підтвердженням.</p>
+    </div>
+</div>
+
+{% if basket %}
+<div class="terminal-panel mb-4">
+    <div class="terminal-header mb-2">
+        <span class="terminal-title">[ ВМІСТ КОШИКА ]</span>
+    </div>
+
+    <div class="terminal-body">
+
+        <ul class="list-unstyled">
+            {% for position, qty in basket.items() %}
+            <li class="mb-3">
+                ☢ <strong>{{ position }}</strong><br>
+
+                <form action="/basket/update/{{ position }}" method="post" class="d-inline-flex mt-1">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+
+                    <!-- minus -->
+                    <button name="action" value="minus" class="btn btn-outline-haven btn-sm">−</button>
+
+                    <span class="terminal-highlight mx-2">{{ qty }}</span>
+
+                    <!-- plus -->
+                    <button name="action" value="plus" class="btn btn-outline-haven btn-sm">+</button>
+
+                    <!-- delete -->
+                    <button name="action" value="delete" class="btn btn-outline-danger btn-sm ms-2">
+                        ✖
+                    </button>
+                </form>
+            </li>
+            {% endfor %}
+        </ul>
+
+        <!-- SUM -->
+        <div class="mt-3">
+            <h4 class="terminal-highlight">
+                Загальна сума: {{ total_price }} ₴
+            </h4>
+        </div>
+
+    </div>
+</div>
+
+<!-- CLEAR BASKET -->
+<form method="post" action="/basket/clear" class="mb-3">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+    <button class="btn btn-outline-danger w-100">
+        ✖ Очистити кошик
+    </button>
+</form>
+
+<!-- CONFIRM -->
+<form method="post" class="terminal-panel p-3">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+    <button type="submit" class="btn btn-haven w-100">
+        ☢ Підтвердити замовлення
+    </button>
+</form>
+
+{% else %}
+<div class="terminal-panel">
+    <div class="terminal-header">
+        <span class="terminal-title">[ УВАГА ]</span>
+    </div>
+
+    <div class="terminal-body">
+        <h2 class="terminal-highlight mt-3">Ваш кошик порожній</h2>
+        <p class="mt-2">> Поверніться до меню, щоб обрати страви.</p>
+
+        <a href="/menu" class="btn btn-outline-haven mt-3 w-50">
+            ☰ До меню
+        </a>
+    </div>
+</div>
+{% endif %}
+
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+<div class="alert alert-haven mt-4">
+    {{ messages[0] }}
+</div>
+{% endif %}
+{% endwith %}
+
+{% endblock %}

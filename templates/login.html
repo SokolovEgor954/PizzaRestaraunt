@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% set active_page = 'login' %}
+
+{% block title %}Вхід — Останній Прихисток{% endblock %}
+
+{% block content %}
+
+<div class="terminal-panel mb-4">
+
+    <div class="terminal-header d-flex justify-content-between">
+        <span class="terminal-title">[ АВТОРИЗАЦІЯ ]</span>
+        <span class="terminal-code">NODE: LOGIN-01</span>
+    </div>
+
+    <div class="terminal-body">
+        <p>> Для доступу до системи укриття введіть свої облікові дані.</p>
+    </div>
+
+</div>
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        {% for category, message in messages %}
+            <div class="alert alert-haven alert-{{ category }}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+{% endwith %}
+
+<div class="terminal-panel p-4 mt-3">
+
+    <form method="post" action="/login">
+
+        <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+
+        <label class="form-label-haven">Nickname</label>
+        <input type="nickname" name="nickname" required class="input-haven mb-3">
+
+        <label class="form-label-haven">Пароль</label>
+        <input type="password" name="password" required class="input-haven mb-3">
+
+        <button type="submit" class="btn btn-haven w-100 mt-3">
+            ☢ Увійти
+        </button>
+
+        <div class="text-center mt-3">
+            <a href="/register" class="btn btn-outline-haven w-100">
+                Створити новий акаунт
+            </a>
+        </div>
+
+    </form>
+
+</div>
+
+{% endblock %}

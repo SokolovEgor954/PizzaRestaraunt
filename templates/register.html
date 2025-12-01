@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% set active_page = 'register' %}
+
+{% block title %}Реєстрація — Останній Прихисток{% endblock %}
+
+{% block content %}
+
+<div class="terminal-panel mb-4">
+
+    <div class="terminal-header d-flex justify-content-between">
+        <span class="terminal-title">[ РЕЄСТРАЦІЯ НОВОГО ВИЖИВШОГО ]</span>
+        <span class="terminal-code">NODE: REG-01</span>
+    </div>
+
+    <div class="terminal-body">
+        <p>> Створіть обліковий запис, щоб отримати доступ до систем укриття.</p>
+    </div>
+
+</div>
+
+<!-- Flash-повідомлення -->
+{% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        {% set category, message = messages[0] %}
+        <div class="alert alert-haven alert-{{ category }}">
+            {{ message }}
+        </div>
+    {% endif %}
+{% endwith %}
+
+<div class="terminal-panel p-4">
+
+    <form action="/register" method="post">
+
+        <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+
+        <label class="form-label-haven">Нікнейм</label>
+        <input type="text" name="nickname" placeholder="Нікнейм" required class="input-haven mb-3">
+
+        <label class="form-label-haven">Email</label>
+        <input type="email" name="email" placeholder="Email" required class="input-haven mb-3">
+
+        <label class="form-label-haven">Пароль</label>
+        <input type="password" name="password" placeholder="Пароль" required class="input-haven mb-3">
+
+        <button type="submit" class="btn btn-haven w-100 mt-3">
+            ☢ Зареєструватися
+        </button>
+
+        <a href="/login" class="btn btn-outline-haven w-100 mt-3">
+            Вже є акаунт? Увійти
+        </a>
+
+    </form>
+
+</div>
+
+{% endblock %}
