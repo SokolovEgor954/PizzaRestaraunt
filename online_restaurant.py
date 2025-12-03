@@ -137,6 +137,7 @@ def login():
 @login_required
 def logout():
     logout_user()
+    session.pop('_flashes', None)
     return redirect(url_for('login'))
 
 
@@ -450,4 +451,5 @@ def clear_basket():
 
 
 if __name__ == '__main__':
+
     app.run(debug=True)
